@@ -8,14 +8,24 @@ var Parse = {
 
   create: function(message, successCB, errorCB = null) {
     // TODO: send a request to the Parse API to save the message
+    $.ajax({
+      url: Parse.server, // parse API or other website to which we want to send a request
+      type: 'POST', // HTTP verb
+      data: '{ order: -createdAt }', //data sent to the server which specifies extra options for how the verb should happen
+      contentType: 'application/json', //format of content you are providing to the server, type of data being sent
+      success: successCB,
+      error: errorCB || function(error) {
+        console.error('chatterbox: Failed to fetch messages', error);
+      }
+    });
   },
 
   readAll: function(successCB, errorCB = null) {
     $.ajax({
-      url: Parse.server,
-      type: 'GET',
-      data: { order: '-createdAt' },
-      contentType: 'application/json',
+      url: Parse.server, // parse API or other website to which we want to send a request
+      type: 'GET', // HTTP verb
+      data: { order: '-createdAt' }, //data sent to the server which specifies extra options for how the verb should happen
+      contentType: 'application/json', //format of content you are providing to the server, type of data being sent
       success: successCB,
       error: errorCB || function(error) {
         console.error('chatterbox: Failed to fetch messages', error);

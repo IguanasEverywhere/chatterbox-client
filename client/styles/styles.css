@@ -88,3 +88,10 @@ form input[type=text] {
     background-color: #0090da;
 }
 
+.username {
+    font-size: 12px;
+}
+
+.post-message {
+    font-size: 10px;
+}

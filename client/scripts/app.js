@@ -4,9 +4,12 @@
 
 var App = {
 
+  $refresh: $('#refresh'),
   $spinner: $('.spinner img'),
 
   username: 'anonymous',
+
+
 
   initialize: function() {
     App.username = window.location.search.substr(10);
@@ -19,19 +22,34 @@ var App = {
     App.startSpinner();
     App.fetch(App.stopSpinner);
 
+    App.$refresh.on('click', App.fetch);
+    // FormView.$form.on('submit', FormView.handleSubmit);
+
+
+
     // TODO: Make sure the app loads data from the API
     // continually, instead of just once at the start.
   },
 
+
+
   fetch: function(callback = ()=>{}) {
+     console.log('fetch called');
     Parse.readAll((data) => {
       // examine the response from the server request:
-      console.log(data);
+      // console.log(data);
+      Messages._data = data;
+      console.log(Messages._data);
+      MessagesView.initialize();
+
+      callback();
+
 
       // TODO: Use the data to update Messages and Rooms
       // and re-render the corresponding views.
     });
   },
+
 
   startSpinner: function() {
     App.$spinner.show();
