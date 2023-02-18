@@ -21,9 +21,10 @@ var FormView = {
       username: 'Brennin and Scott',
       text: inputBox,
       roomname: 'placeholder'
-    }
-    console.log('input is', inputBox);
+    };
     Parse.create(message);
+    MessagesView.renderMessage(message);
+    MessagesView.initialize();
   },
 
   setStatus: function(active) {

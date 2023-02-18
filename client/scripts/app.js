@@ -15,32 +15,41 @@ var App = {
     App.username = window.location.search.substr(10);
 
     FormView.initialize();
-    RoomsView.initialize();
-    MessagesView.initialize();
+    // RoomsView.initialize();
+    // MessagesView.initialize();
 
     // Fetch initial batch of messages
     App.startSpinner();
     App.fetch(App.stopSpinner);
 
-    App.$refresh.on('click', App.fetch);
+    App.$refresh.on('click', function () {
+      App.fetch(App.stopSpinner);
+      $('#chats').empty();
+      MessagesView.render();
+    });
     // FormView.$form.on('submit', FormView.handleSubmit);
 
 
 
     // TODO: Make sure the app loads data from the API
     // continually, instead of just once at the start.
+
   },
 
 
 
   fetch: function(callback = ()=>{}) {
-     console.log('fetch called');
-    Parse.readAll((data) => {
+      console.log('fetch called');
+      Parse.readAll((data) => {
       // examine the response from the server request:
       // console.log(data);
       Messages._data = data;
       console.log(Messages._data);
+
+      // Rooms._data = [];
+
       MessagesView.initialize();
+      RoomsView.initialize();
 
       callback();
 

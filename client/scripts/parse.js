@@ -11,11 +11,11 @@ var Parse = {
     $.ajax({
       url: Parse.server, // parse API or other website to which we want to send a request
       type: 'POST', // HTTP verb
-      data: '{ order: -createdAt }', //data sent to the server which specifies extra options for how the verb should happen
+      data: JSON.stringify(message),
       contentType: 'application/json', //format of content you are providing to the server, type of data being sent
       success: successCB,
       error: errorCB || function(error) {
-        console.error('chatterbox: Failed to fetch messages', error);
+        console.error('chatterbox: Failed to post messages', error);
       }
     });
   },
